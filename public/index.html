@@ -13,6 +13,7 @@
   <!-- for custom -->
   <link rel="stylesheet" href="styles/style.css">
   <link rel="icon" href="images/favicon.ico">
+  <script src="./requests/user.js"></script>
 </head>
 
 <body>
@@ -49,7 +50,7 @@
 
         </div>
         <div class="col-4">
-          <form id="form_login" method="post" action="./common/login.php">
+          <form id="form_login" method="post">
             <label for="input_phone" class="col-form-label col-form-label-lg">전화번호</label>
             <div class="input-group input-group-lg">
               <div class="input-group-text"><i class="bi bi-phone"></i></div>
@@ -89,7 +90,7 @@
           <h1 class="modal-title fs-5">회원가입</h1>
         </div>
         <div class="modal-body">
-          <form id="form_register" method="post" action="./common/register.php">
+          <form id="form_register">
             <label for="r_input_name" class="col-form-label">이름</label>
             <input name="name" id="r_input_phone" class="form-control" required>
             <label for="r_input_phone" class="col-form-label">전화번호</label>
@@ -101,7 +102,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" form="form_register">가입</button>
+          <button type="submit" class="btn btn-primary" form="form_register" onclick="register()">가입</button>
           <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
         </div>
       </div>

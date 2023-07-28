@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express';
 import { sequelize } from "./models";
 import dotenv from 'dotenv';
-import * as notice from './logic/notice';
+import * as logic_notice from './logic/logic_notice';
+import * as logic_user from './logic/logic_user';
+import bodyParser from 'body-parser';
 dotenv.config();
 
 const app = express();
@@ -10,6 +12,7 @@ const webDir = __dirname + '/public/';
 
 // middle 
 app.use(express.static('public'));
+app.use(bodyParser.json());
 
 // route
 app.get('/test', (req: Request, res: Response) => {
@@ -21,9 +24,13 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/notice', async (req: Request, res: Response) => {
-  const result = await notice.get(req);
+  const result = await logic_notice.get(req);
   res.send(result);
-})
+});
+app.post('/user/register', async (req: Request, res: Response) => {
+  const result = await logic_user.register(req);
+  res.send(result);
+});
 
 // start
 app.listen(PORT, async () => {
