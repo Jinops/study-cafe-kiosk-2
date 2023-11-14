@@ -14,7 +14,7 @@ try {
     echo "
     <script>
       alert('계정이 존재하지 않거나, 비밀번호가 틀렸습니다!');
-      location.replace('../index.php');
+      location.replac e('../index.php');
     </script>
     ";
   } else{
