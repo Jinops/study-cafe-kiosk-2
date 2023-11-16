@@ -17,3 +17,5 @@ export interface IUser {
 export interface ISession extends SessionData {
   phone?: string;
 }
+
+export type ticket_type = 'baisc' | 'fixed';
