@@ -1,3 +1,5 @@
+import { SessionData } from "express-session";
+
 export interface INotice {
   Id?: number;
   Title: string;
@@ -10,4 +12,8 @@ export interface IUser {
   Password: string;
   Name: string;
   Total_payment?: number;
+}
+
+export interface ISession extends SessionData {
+  phone?: string;
 }

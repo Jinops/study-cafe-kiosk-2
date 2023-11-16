@@ -4,16 +4,17 @@ import dotenv from 'dotenv';
 import * as logic_notice from './logic/logic_notice';
 import * as logic_user from './logic/logic_user';
 import bodyParser from 'body-parser';
-import session, { SessionData } from 'express-session';
+import session from 'express-session';
+import path from 'path';
+import { ISession } from './types';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const webDir = __dirname + '/public/';
-
+const publicDir = path.join(__dirname, 'public');
 // middle 
-app.use(express.static('public'));
+app.use(express.static(publicDir, { index: false }));
 app.use(bodyParser.json());
 app.use(
   session({
@@ -22,16 +23,13 @@ app.use(
     saveUninitialized: false,
   })
 );
-interface Session extends SessionData {
-  phone?: string;
-}
 // route
 app.get('/', (req: Request, res: Response) => {
-  const session:Session = req.session;
+  const session:ISession = req.session;
   if(session.phone){
-    res.sendFile(webDir + 'ticket.html')
+    res.sendFile(path.join(publicDir, 'ticket.html'));
   } else{
-    res.sendFile(webDir + 'index.html')
+    res.sendFile(path.join(publicDir, 'index.html'));
   }
 });
 
