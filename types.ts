@@ -16,6 +16,15 @@ export interface IUser {
 
 export interface ISession extends SessionData {
   phone?: string;
+  ticket_type?: ticket_type;
+}
+
+export interface ITicket {
+  Id: number;
+  Type: ticket_type;
+  Price: number;
+  Duration_min: number;
 }
 
 export type ticket_type = 'baisc' | 'fixed';
+

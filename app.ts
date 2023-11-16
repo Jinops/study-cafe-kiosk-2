@@ -27,6 +27,7 @@ app.use(
 // route
 app.get('/', (req: Request, res: Response) => {
   const session:ISession = req.session;
+  console.log('me', session.phone)
   if(session.phone){
     res.sendFile(path.join(publicDir, 'ticket.html'));
   } else{
@@ -39,7 +40,6 @@ app.get('/notice', async (req: Request, res: Response) => {
   res.send(result);
 });
 app.post('/user/login', async (req: Request, res: Response) => {
-  console.log(req)
   const result = await logic_user.login(req);
   res.send(result);
 });
@@ -49,6 +49,10 @@ app.post('/user/register', async (req: Request, res: Response) => {
 });
 app.post('/ticket/set_type', async (req: Request, res: Response) => {
   const result = await logic_ticket.set_type(req);
+  res.send(result);
+});
+app.get('/ticket/all_by_type', async (req: Request, res: Response) => {
+  const result = await logic_ticket.get_all_by_type(req);
   res.send(result);
 });
 // start

@@ -21,7 +21,7 @@ export async function login(req: any){
   const password: String = req.body.password;
 
   if(req.session.phone){
-    req.session.destroy();
+    req.session.phone=null;
   }
   const query = `SELECT Phone FROM USER WHERE Phone=${phone} AND Password=${password} LIMIT 1`;
   const result = await sequelize.query(query, { type: QueryTypes.SELECT });

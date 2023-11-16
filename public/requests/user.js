@@ -54,7 +54,7 @@ async function login(){
       console.log(result)
       if(result.phone){
         alert('로그인 성공');
-        location.replace('../');
+        location.replace('/');
       }
     })
     .catch((e) => {
