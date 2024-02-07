@@ -28,3 +28,28 @@ export interface ITicket {
 
 export type ticket_type = 'baisc' | 'fixed';
 
+export interface ISeat {
+  Id: number;
+  Room_id: number;
+  Width: number;
+  Height: number;
+  X: number;
+  Y: number;
+}
+
+export interface IRoom {
+  Id: number;
+  Name: string;
+  Width: number;
+  Height: number;
+}
+
+export interface IReserve {
+  Id: number;
+  User_id: number;
+  Room_id: number;
+  Seat_id: number;
+  Ticket_id: number;
+  Start_time: Date;
+  End_time: Date;
+}

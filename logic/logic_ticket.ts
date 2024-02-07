@@ -11,6 +11,14 @@ export async function set_type(req: any){
   };
 }
 
+export async function set_id(req: any){
+  const id: number = req.body.id;
+  req.session.ticket_id = id;
+  return {
+    error: api_error.OK,
+  };
+}
+
 export async function get_all_by_type(req: any){
   const type: ticket_type = req.session.type;
   

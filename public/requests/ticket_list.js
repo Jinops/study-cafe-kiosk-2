@@ -13,7 +13,7 @@ window.onload = function(){
       const duration = getDuration(ticket.Type, ticket.Duration_min);
       ticket_list.innerHTML += `
       <div class='col-4'>
-        <button class='btn btn-dark btn-lg my-1 w-100'>
+        <button class='btn btn-dark btn-lg my-1 w-100' onClick=setTicket(${ticket.Id})>
         <i class='bi bi-clock'></i> ${duration} 이용권<br />${ticket.Price}원</button>
       </div>
       `;
@@ -35,4 +35,16 @@ function getDuration(ticketType, durationMin){
     duration = durationMin +'분';
   }
   return duration;
+}
+
+function setTicket(ticketId){
+  fetch("http://localhost:3000/ticket/set_id", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(result => {
+    location.replace('/seat.html');
+  });
 }
