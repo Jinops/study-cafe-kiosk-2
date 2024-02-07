@@ -65,7 +65,7 @@ app.get('/room/all', async (req: Request, res:Response) => {
   res.send(result);
 })
 
-app.get('/seat/by_room_id', async (req: Request, res:Response) => {
+app.get('/seat/by_room_id/:room_id', async (req: Request, res:Response) => {
   const result = await logic_seat.get_all_by_room_id(req);
   res.send(result);
 })

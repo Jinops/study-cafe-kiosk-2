@@ -1,0 +1,30 @@
+  .room {
+    border: 0.1em solid black;
+    display: inline-block;
+    position: relative;
+    max-height: 50px;
+  }
+
+  .seat {
+    border: 1px solid black;
+    position:absolute;
+  }
+
+  .btn_room{
+    color: gray;
+  }
+  .btn_room:hover{
+    color: #212529;
+  }
+
+
+  .nav-pills .btn_room.active, .nav-pills .show>.btn_room{
+    background-color: #212529;
+    color: white;
+
+  }
+
+  .btn.disabled, .btn:disabled{
+    background-color: gray;
+  }
+  
