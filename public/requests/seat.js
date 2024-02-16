@@ -37,7 +37,7 @@ async function render_room(elem) {
       tabBtnElem.setAttribute('data-bs-toggle', 'pill');
       tabBtnElem.classList = `nav-link btn_room ${active}`;
       tabBtnElem.setAttribute('data-bs-toggle', 'pill');
-      tabBtnElem.setAttribute('data-bs-targe', `#pills-${room.Id}`);
+      tabBtnElem.setAttribute('data-bs-target', `#pills-${room.Id}`);
       tabBtnElem.type = 'button';
       tabBtnElem.role = 'tab';
       tabBtnElem.setAttribute('aria-controls', `pills-${room.Id}`);
@@ -70,7 +70,7 @@ async function render_seat(tabContentElem, rooms){
   if(!rooms){
     return;
   }
-  console.log(rooms)
+
   let active = 'active';
   for(const room of rooms){
     await fetch(`http://localhost:3000/seat/by_room_id/${room.Id}`, {
@@ -83,8 +83,7 @@ async function render_seat(tabContentElem, rooms){
     .then(result => {
       const seats = result.seats;
       const reserved_seat_ids = result.reserved_seat_ids;
-
-      console.log(room.Id, seats)
+      console.log(reserved_seat_ids)
       
       const tabPanelElem = document.createElement("div");
       tabPanelElem.classList = `tab-pane fade show ${active}`;
@@ -93,15 +92,20 @@ async function render_seat(tabContentElem, rooms){
       tabPanelElem.active = active;
 
       const roomElem = document.createElement("div");
-      roomElem.class = "room";
-      roomElem.style = `width: $${room.Width}%; padding-bottom:${room.Height}%`;
+      roomElem.className = "room";
+      roomElem.style = `width: ${room.Width}%; height: ${room.Width}%; padding-bottom:${room.Height}%`;
 
       for(const seat of seats){
         const seatElem = document.createElement("a");
         const style = `width:${seat.Width}%; height:${seat.Height}%; left:${seat.X}%; top:${seat.Y}%;`;
-        seatElem.classList = 'seat btn btn-sm btn-outline-dark';
-        seatElem.style = style;
-        seatElem.innerText = seat.Id;
+
+        const seatBtnElem = document.createElement("button");
+        seatBtnElem.classList= 'seat btn btn-sm btn-outline-dark';
+        seatBtnElem.style = style;
+        seatBtnElem.innerText = seat.Id;
+        seatBtnElem.disabled = reserved_seat_ids.indexOf(seat.Id) != -1;
+
+        seatElem.appendChild(seatBtnElem);
         roomElem.appendChild(seatElem);
       };
 
