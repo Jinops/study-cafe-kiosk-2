@@ -13,6 +13,8 @@
   <!-- for custom-->
   <link rel="stylesheet" href="styles/style.css">
   <link rel="icon" href="images/favicon.ico">
+  <script src="requests/seat.js"></script>
+  <script src="common/room_seat.js"></script>
 </head>
 
 <body>
@@ -21,10 +23,10 @@
     <div class="justify-content-center border py-4 px-5 m-5">
       <h2 class="text-center mb-4">좌석 선택</h2>
       <hr />
-      <div id="room_seat"></div>
+      <div id="room_seat">
+      </div>
     </div>
   </div>
 </body>
-<script src="requests/room_seat.js"></script>
-
+<script>render_room_seat('room_seat', payment)</script>
 </html>

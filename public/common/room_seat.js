@@ -1,9 +1,9 @@
-window.onload = async () => {
-    const elem = document.getElementById('room_seat');
+async function render_room_seat(elemId='room_seat', event) {
+    const elem = document.getElementById(elemId);
     document.head.appendChild(link);
     
     const [content, rooms] = await render_room(elem);
-    await render_seat(content, rooms);
+    await render_seat(content, rooms, event);
 }
 
 async function render_room(elem) {
@@ -47,14 +47,12 @@ async function render_room(elem) {
       tabListElem.appendChild(tabElem);
       active = '';
     }
-    console.log("2");
 
   })
   .catch(e => {
     console.error(e);
   })
   elem.innerHTML += `</ul>`;
-  console.log("3");
 
   const tabContentElem = document.createElement("div");
   tabContentElem.classList = 'tab-content text-center border p-5';
@@ -66,7 +64,7 @@ async function render_room(elem) {
   return [tabContentElem, rooms];
 }
 
-async function render_seat(tabContentElem, rooms){
+async function render_seat(tabContentElem, rooms, event){
   if(!rooms){
     return;
   }
@@ -83,7 +81,6 @@ async function render_seat(tabContentElem, rooms){
     .then(result => {
       const seats = result.seats;
       const reserved_seat_ids = result.reserved_seat_ids;
-      console.log(reserved_seat_ids)
       
       const tabPanelElem = document.createElement("div");
       tabPanelElem.classList = `tab-pane fade show ${active}`;
@@ -104,6 +101,7 @@ async function render_seat(tabContentElem, rooms){
         seatBtnElem.style = style;
         seatBtnElem.innerText = seat.Id;
         seatBtnElem.disabled = reserved_seat_ids.indexOf(seat.Id) != -1;
+        seatBtnElem.onclick = event ? event.bind(null, seat.Id) : null;
 
         seatElem.appendChild(seatBtnElem);
         roomElem.appendChild(seatElem);
