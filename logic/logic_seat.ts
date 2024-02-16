@@ -20,3 +20,11 @@ export async function get_all_by_room_id(req:any){
         reserved_seat_ids,
     };
 }
+
+export async function set(req:any){
+    const id: number = req.params.seat_id;
+    req.session.seat_id = id;
+    return {
+      error: api_error.OK,
+    };
+}

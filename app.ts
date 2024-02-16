@@ -10,6 +10,7 @@ import * as logic_user from './logic/logic_user';
 import * as logic_ticket from './logic/logic_ticket';
 import * as logic_room from './logic/logic_room';
 import * as logic_seat from './logic/logic_seat';
+import * as logic_payment from './logic/logic_payment';
 
 dotenv.config();
 
@@ -67,6 +68,15 @@ app.get('/room/all', async (req: Request, res:Response) => {
 
 app.get('/seat/by_room_id/:room_id', async (req: Request, res:Response) => {
   const result = await logic_seat.get_all_by_room_id(req);
+  res.send(result);
+})
+app.post('/seat/set', async (req: Request, res:Response) => {
+  const result = await logic_seat.set(req);
+  res.send(result);
+})
+
+app.post('/payment/set_type', async (req: Request, res:Response) => {
+  const result = await logic_payment.set_type(req);
   res.send(result);
 })
 

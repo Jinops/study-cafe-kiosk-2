@@ -53,3 +53,5 @@ export interface IReserve {
   Start_time: Date;
   End_time: Date;
 }
+
+export type payment_type = 'card' | 'cash';

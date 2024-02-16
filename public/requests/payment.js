@@ -1,8 +1,8 @@
-function payment(seatId){
+function payment_type(paymentType){
     const data = {
-        seat_id: seatId,
+        payment_type: paymentType,
       };
-      fetch("http://localhost:3000/seat/set", {
+      fetch("http://localhost:3000/payment/set_type", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -10,7 +10,7 @@ function payment(seatId){
           body: JSON.stringify(data),
         })
         .then((result) => {
-          location.replace('/payment.html');
+          location.replace('/payment_progress.html');
         })
         .catch((e) => {
           console.error(e);
