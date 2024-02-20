@@ -11,6 +11,7 @@ import * as logic_room from './logic/logic_room';
 import * as logic_seat from './logic/logic_seat';
 import * as logic_payment from './logic/logic_payment';
 import * as route_payment from './route/route_payment';
+import * as route_user from './route/route_user';
 
 dotenv.config();
 
@@ -43,15 +44,15 @@ app.get('/notice', async (req: Request, res: Response) => {
 });
 
 app.post('/user/login', async (req: Request, res: Response) => {
-  const result = await logic_user.login(req);
+  const result = await route_user.login(req);
   res.send(result);
 });
 app.post('/user/logout', async (req: Request, res: Response) => {
-  const result = await logic_user.logout(req);
+  const result = await route_user.logout(req);
   res.send(result);
 });
 app.post('/user/register', async (req: Request, res: Response) => {
-  const result = await logic_user.register(req);
+  const result = await route_user.register(req);
   res.send(result);
 });
 

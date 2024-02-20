@@ -13,6 +13,7 @@ export interface IUser {
 }
 
 export interface ISession  {
+  destroy(arg0: () => ISession): void;
   user_id?: number;
   ticket_type?: ticket_type;
   ticket_id?: number;

@@ -1,49 +1,32 @@
 import { QueryTypes } from 'sequelize';
 import { sequelize } from '../models';
 import { api_error } from '../common/api_error';
-import { IUser } from '../types';
+import { ISession, IUser } from '../types';
 
-export async function register(req: any){
-  const phone: String = req.body.phone;
-  const password: Number = req.body.password;
-  const name: String = req.body.name;
+export async function register(phone:String, password:Number, name:String){
 
   const query = `INSERT INTO USER(Phone, Password, Name) VALUES('${phone}','${password}','${name}')`;
   const results = await sequelize.query(query, { type: QueryTypes.INSERT });
 
   // TODO: check duplicated phone number
-  return {
-    error: api_error.OK,
-    result: results,
-  };
 }
-export async function login(req: any){
-  const phone: String = req.body.phone;
-  const password: String = req.body.password;
+export async function login(phone:String, password:String, session:ISession){
 
-  if(req.session.phone){
-    req.session.phone=null;
-  }
+  // if(session?.user_id){
+  //   session.user_id=null;
+  // }
   const query = `SELECT Id FROM USER WHERE Phone=${phone} AND Password=${password} LIMIT 1`;
   const result:Pick<IUser, 'Id'>|null = await sequelize.query(query, { type: QueryTypes.SELECT, plain:true });
   
   if(!result){
-    return {
-      error: api_error.INVALID_REQUEST,
-    };
+    return;
   }
 
-  req.session.user_id = result.Id;
-  return {
-    error: api_error.OK,
-  };
+  session.user_id = result.Id;
 }
 
-export async function logout(req: any){
-  req.session.destroy(()=>req.session);
-  return {
-    error: api_error.OK,
-  }
+export async function logout(session:ISession){
+  session.destroy(()=>session);
 }
 
 
