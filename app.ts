@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import path from 'path';
-import { ISession } from './types';
 import * as logic_notice from './logic/logic_notice';
 import * as logic_user from './logic/logic_user';
 import * as logic_ticket from './logic/logic_ticket';
 import * as logic_room from './logic/logic_room';
 import * as logic_seat from './logic/logic_seat';
 import * as logic_payment from './logic/logic_payment';
+import * as route_payment from './route/route_payment';
 
 dotenv.config();
 
@@ -29,9 +29,8 @@ app.use(
 );
 // route
 app.get('/', (req: Request, res: Response) => {
-  const session:ISession = req.session;
-  console.log('me', session.phone)
-  if(session.phone){
+  console.log(req.session.user_id)
+  if(req.session?.user_id){
     res.sendFile(path.join(publicDir, 'ticket.html'));
   } else{
     res.sendFile(path.join(publicDir, 'index.html'));
@@ -47,6 +46,10 @@ app.post('/user/login', async (req: Request, res: Response) => {
   const result = await logic_user.login(req);
   res.send(result);
 });
+app.post('/user/logout', async (req: Request, res: Response) => {
+  const result = await logic_user.logout(req);
+  res.send(result);
+});
 app.post('/user/register', async (req: Request, res: Response) => {
   const result = await logic_user.register(req);
   res.send(result);
@@ -54,6 +57,10 @@ app.post('/user/register', async (req: Request, res: Response) => {
 
 app.post('/ticket/set_type', async (req: Request, res: Response) => {
   const result = await logic_ticket.set_type(req);
+  res.send(result);
+});
+app.post('/ticket/set_id', async (req: Request, res: Response) => {
+  const result = await logic_ticket.set_id(req);
   res.send(result);
 });
 app.get('/ticket/all_by_type', async (req: Request, res: Response) => {
@@ -77,6 +84,11 @@ app.post('/seat/set', async (req: Request, res:Response) => {
 
 app.post('/payment/set_type', async (req: Request, res:Response) => {
   const result = await logic_payment.set_type(req);
+  res.send(result);
+})
+
+app.get('/payment/add', async (req: Request, res:Response) => {
+  const result = await route_payment.add(req.session);
   res.send(result);
 })
 

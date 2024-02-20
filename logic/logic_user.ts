@@ -1,6 +1,7 @@
 import { QueryTypes } from 'sequelize';
 import { sequelize } from '../models';
 import { api_error } from '../common/api_error';
+import { IUser } from '../types';
 
 export async function register(req: any){
   const phone: String = req.body.phone;
@@ -23,18 +24,41 @@ export async function login(req: any){
   if(req.session.phone){
     req.session.phone=null;
   }
-  const query = `SELECT Phone FROM USER WHERE Phone=${phone} AND Password=${password} LIMIT 1`;
-  const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  const query = `SELECT Id FROM USER WHERE Phone=${phone} AND Password=${password} LIMIT 1`;
+  const result:Pick<IUser, 'Id'>|null = await sequelize.query(query, { type: QueryTypes.SELECT, plain:true });
   
-  if(result.length < 1){
+  if(!result){
     return {
       error: api_error.INVALID_REQUEST,
-      phone: null,
     };
   }
-  req.session.phone = phone;
+
+  req.session.user_id = result.Id;
   return {
     error: api_error.OK,
-    phone: phone,
   };
 }
+
+export async function logout(req: any){
+  req.session.destroy(()=>req.session);
+  return {
+    error: api_error.OK,
+  }
+}
+
+
+async function get(userId: number) : Promise<IUser | null>{
+  const query = `SELECT * FROM USER WHERE Id=${userId} LIMIT 1`;
+  return await sequelize.query(query, { type: QueryTypes.SELECT, plain:true });
+}
+
+export async function updateTotalPayment(userId: number, price:number){
+  const user = await get(userId);
+  if(!user) return;
+
+  const query = `UPDATE USER SET Total_payment=Total_payment+${price} WHERE Id=${userId};`;
+  const result = await sequelize.query(query, {type: QueryTypes.UPDATE});
+
+  return result;
+}
+

@@ -1,5 +1,3 @@
-import { SessionData } from "express-session";
-
 export interface INotice {
   Id?: number;
   Title: string;
@@ -14,9 +12,17 @@ export interface IUser {
   Total_payment?: number;
 }
 
-export interface ISession extends SessionData {
-  phone?: string;
+export interface ISession  {
+  user_id?: number;
   ticket_type?: ticket_type;
+  ticket_id?: number;
+  seat_id?: number;
+  room_id?: number;
+  payment_type?: payment_type;
+}
+
+declare module "express-session" {
+  interface SessionData extends ISession {}
 }
 
 export interface ITicket {
@@ -55,3 +61,12 @@ export interface IReserve {
 }
 
 export type payment_type = 'card' | 'cash';
+
+export interface IPayment {
+  Id?: number;
+  User_id: number;
+  Ticket_id: number;
+  Price: number;
+  Time: Date;
+  Type: payment_type;
+}

@@ -101,7 +101,7 @@ async function render_seat(tabContentElem, rooms, event){
         seatBtnElem.style = style;
         seatBtnElem.innerText = seat.Id;
         seatBtnElem.disabled = reserved_seat_ids.indexOf(seat.Id) != -1;
-        seatBtnElem.onclick = event ? event.bind(null, seat.Id) : null;
+        seatBtnElem.onclick = event ? event.bind(null, seat.Id, room.Id) : null;
 
         seatElem.appendChild(seatBtnElem);
         roomElem.appendChild(seatElem);

@@ -1,4 +1,4 @@
-function payment_type(paymentType){
+function payment(paymentType){
     const data = {
         payment_type: paymentType,
       };
@@ -10,7 +10,7 @@ function payment_type(paymentType){
           body: JSON.stringify(data),
         })
         .then((result) => {
-          location.replace('/payment_progress.html');
+          location.replace('/payment_process.html');
         })
         .catch((e) => {
           console.error(e);

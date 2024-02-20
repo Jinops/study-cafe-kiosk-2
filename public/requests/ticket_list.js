@@ -38,11 +38,15 @@ function getDuration(ticketType, durationMin){
 }
 
 function setTicket(ticketId){
+  const data = {
+    ticket_id: ticketId,
+  };
   fetch("http://localhost:3000/ticket/set_id", {
-    method: "PUT",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
   })
   .then(result => {
     location.replace('/seat.html');

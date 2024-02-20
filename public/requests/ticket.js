@@ -1,6 +1,6 @@
-async function ticket_type(type) {
+async function ticket_type(ticket_type) {
   const data = {
-    type
+    ticket_type
   };
   fetch("http://localhost:3000/ticket/set_type", {
       method: "POST",

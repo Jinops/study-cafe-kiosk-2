@@ -52,7 +52,7 @@ async function login(){
     .then((response) => response.json())
     .then((result) => {
       console.log(result)
-      if(result.phone){
+      if(result.user_id){
         alert('로그인 성공');
         location.replace('/');
       }

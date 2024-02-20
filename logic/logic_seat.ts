@@ -22,8 +22,11 @@ export async function get_all_by_room_id(req:any){
 }
 
 export async function set(req:any){
-    const id: number = req.params.seat_id;
-    req.session.seat_id = id;
+    const seat_id: number = req.body.seat_id;
+    const room_id: number = req.body.room_id;
+    
+    req.session.seat_id = seat_id;
+    req.session.room_id = room_id;
     return {
       error: api_error.OK,
     };
