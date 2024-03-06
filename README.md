@@ -1,8 +1,10 @@
 > [!NOTE]  
-> 기존에 PHP로 만들었던 프로젝트의 Node.js 및 Typescript 리팩토링 프로젝트입니다.
+> 기존에 PHP로 구축한 프로젝트의 Node.js 및 Typescript **리팩토링 프로젝트**입니다. (WIP)
 > 
-> 원본: https://github.com/Jinops/study-cafe-kiosk/
-
+>original: https://github.com/Jinops/study-cafe-kiosk/
+> 
+> remain jobs: _Error control, Admin pages_
+---
 
 # study-cafe-kiosk
 
@@ -10,8 +12,8 @@ Kiosk program(Web) & server for study cafe
 
 웹 기반의 스터디 카페 키오스크 프로그램 및 서버
 
-![frontend](images/screenshot_fe.png)
-![backend](images/screenshot_be.png)
+![frontend](https://github.com/Jinops/study-cafe-kiosk/blob/main/images/screenshot_fe.png)
+![backend](https://github.com/Jinops/study-cafe-kiosk/blob/main/images/screenshot_be.png)
 
 ## 목적
 
